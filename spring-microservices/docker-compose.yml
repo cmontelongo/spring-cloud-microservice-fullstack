@@ -1,0 +1,176 @@
+services:
+
+  # ----------------------------------------------------
+  # CONFIG SERVER (Spring Cloud Config)
+  # ----------------------------------------------------
+  config-server:
+    container_name: config-server
+    build: ./config
+    ports:
+      - "8888:8888"
+    environment:
+      - SERVER_PORT=8888
+      - SPRING_PROFILES_ACTIVE=native,docker
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=${EUREKA_SERVER}
+    depends_on:
+      - eureka-server
+    networks:
+      - micro-net
+
+  # ----------------------
+  # EUREKA DISCOVERY SERVER
+  # ----------------------
+  eureka-server:
+    container_name: eureka-server
+    build: ./eureka
+    ports:
+      - "8761:8761"
+    environment:
+      - EUREKA_CLIENT_REGISTER_WITH_EUREKA=false
+      - EUREKA_CLIENT_FETCH_REGISTRY=false
+      - SERVER_PORT=8761
+    networks:
+      - micro-net
+
+  # ----------------------
+  # SPRING CLOUD GATEWAY
+  # ----------------------
+  gateway-service:
+    container_name: gateway-service
+    build: ./gateway
+    ports:
+      - "8080:8080"
+    environment:
+      - EUREKA_SERVER=${EUREKA_SERVER}
+      - SERVER_PORT=8080
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_CONFIG_IMPORT=${CONFIG_SERVER}
+    depends_on:
+      - eureka-server
+      - config-server
+      - auth-service
+      - product-service
+      - order-service
+    networks:
+      - micro-net
+
+  # ----------------------
+  # AUTH SERVICE (JWT)
+  # ----------------------
+  auth-service:
+    container_name: auth-service
+    build: ./auth
+    ports:
+      - "9000:9000"
+    environment:
+      - EUREKA_SERVER=${EUREKA_SERVER}
+      #- SPRING_CONFIG_IMPORT=${CONFIG_SERVER}
+      - SERVER_PORT=9000
+      - AUTH_DB_URL=${AUTH_DB_URL}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - SECURITY_JWT_SECRET_KEY=${SECURITY_JWT_SECRET_KEY}
+      - SPRING_PROFILES_ACTIVE=docker
+      - CONFIG_SERVER=${CONFIG_SERVER}
+      - DB_OPTIONS=${DB_OPTIONS}
+    depends_on:
+      - eureka-server
+      - config-server
+      - auth-db
+    networks:
+      - micro-net
+
+  # ----------------------
+  # PRODUCT SERVICE
+  # ----------------------
+  product-service:
+    container_name: product-service
+    build: ./products
+    ports:
+      - "9001:9001"
+    environment:
+      - EUREKA_SERVER=${EUREKA_SERVER}
+      - CONFIG_SERVER=${CONFIG_SERVER}
+      - SERVER_PORT=9001
+      - PRODUCT_DB_URL=${PRODUCT_DB_URL}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - SPRING_PROFILES_ACTIVE=docker
+      - DB_OPTIONS=${DB_OPTIONS}
+      - SECURITY_JWT_SECRET_KEY=${SECURITY_JWT_SECRET_KEY}
+    depends_on:
+      - eureka-server
+      - config-server
+      - product-db
+    networks:
+      - micro-net
+
+  # ----------------------
+  # ORDER SERVICE
+  # ----------------------
+  order-service:
+    container_name: order-service
+    build: ./orders
+    ports:
+      - "9002:9002"
+    environment:
+      - EUREKA_SERVER=${EUREKA_SERVER}
+      - CONFIG_SERVER=${CONFIG_SERVER}
+      - SERVER_PORT=9002
+      - ORDER_DB_URL=${ORDER_DB_URL}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - SPRING_PROFILES_ACTIVE=docker
+      - DB_OPTIONS=${DB_OPTIONS}
+      - SECURITY_JWT_SECRET_KEY=${SECURITY_JWT_SECRET_KEY}
+    depends_on:
+      - eureka-server
+      - config-server
+      - order-db
+      - product-service
+    networks:
+      - micro-net
+
+  # -----------------------
+  # BASES DE DATOS (MariaDB)
+  # -----------------------
+
+  auth-db:
+    image: mariadb:11
+    container_name: auth-db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: authdb
+    ports:
+      - "3307:3306"
+    networks:
+      - micro-net
+
+  product-db:
+    image: mariadb:11
+    container_name: product-db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: productdb
+    ports:
+      - "3308:3306"
+    networks:
+      - micro-net
+
+  order-db:
+    image: mariadb:11
+    container_name: order-db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: orderdb
+    ports:
+      - "3309:3306"
+    networks:
+      - micro-net
+
+# ----------------------
+# NETWORK
+# ----------------------
+networks:
+  micro-net:
+    driver: bridge

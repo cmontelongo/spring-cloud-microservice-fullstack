@@ -1,0 +1,36 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: auth-service
+  config:
+    import: ${CONFIG_SERVER}
+  cloud:
+    config:
+      import-check:
+        enabled: false
+
+  datasource:
+    url: ${AUTH_DB_URL}${DB_OPTIONS}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.mariadb.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER}
+
+security.jwt.secret-key: ${SECURITY_JWT_SECRET_KEY}
+security.jwt.access-token-ms: 900000      # 15 minutes
+security.jwt.refresh-token-ms: 2592000000 # 30 days

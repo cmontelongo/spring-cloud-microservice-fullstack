@@ -1,0 +1,44 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+      # Rutas manuales de ejemplo
+      routes:
+
+        # Ruta hacia users-service
+        - id: users-service
+          uri: lb://users-service
+          predicates:
+            - Path=/users/**
+
+        # Ruta hacia orders-service
+        - id: orders-service
+          uri: lb://orders-service
+          predicates:
+            - Path=/orders/**
+
+        # Ruta hacia products-service
+        - id: products-service
+          uri: lb://products-service
+          predicates:
+            - Path=/products/**
+
+        # Ruta hacia auth-service
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/auth/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka
