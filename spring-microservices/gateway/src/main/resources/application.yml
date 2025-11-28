@@ -20,7 +20,7 @@ spring:
           predicates:
             - Path=/users/**
 
-        # Ruta hacia orders-service
+        # Ruta hacia order-service
         - id: orders-service
           uri: lb://orders-service
           predicates:
@@ -37,6 +37,12 @@ spring:
           uri: lb://auth-service
           predicates:
             - Path=/auth/**
+
+        # Ruta hacia dashboard-service
+        - id: dashboard-service
+          uri: lb://dashboard-service
+          predicates:
+            - Path=/dashboard/**
 
 eureka:
   client:

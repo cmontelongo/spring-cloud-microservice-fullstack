@@ -41,5 +41,7 @@ public class Order {
         item.setOrder(this);
         items.add(item);
     }
+
+    private LocalDateTime createdAt;
     
 }

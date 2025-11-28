@@ -49,8 +49,30 @@ services:
       - eureka-server
       - config-server
       - auth-service
-      - product-service
-      - order-service
+      - products-service
+      - orders-service
+    networks:
+      - micro-net
+
+  # ----------------------
+  # DASHBOARD SERVICE
+  # ----------------------
+  dashboard-service:
+    build: ./dashboard
+    container_name: dashboard-service
+    ports:
+      - "9006:9006"
+    environment:
+      - SERVER_PORT=9006
+      - SPRING_PROFILES_ACTIVE=docker
+      - EUREKA_SERVER=${EUREKA_SERVER}
+      - CONFIG_SERVER=${CONFIG_SERVER}
+      - SECURITY_JWT_SECRET_KEY=${SECURITY_JWT_SECRET_KEY}
+    depends_on:
+      - eureka-server
+      - config-server
+      - gateway-service
+      - auth-service
     networks:
       - micro-net
 
@@ -83,8 +105,8 @@ services:
   # ----------------------
   # PRODUCT SERVICE
   # ----------------------
-  product-service:
-    container_name: product-service
+  products-service:
+    container_name: products-service
     build: ./products
     ports:
       - "9001:9001"
@@ -108,8 +130,8 @@ services:
   # ----------------------
   # ORDER SERVICE
   # ----------------------
-  order-service:
-    container_name: order-service
+  orders-service:
+    container_name: orders-service
     build: ./orders
     ports:
       - "9002:9002"
@@ -127,7 +149,7 @@ services:
       - eureka-server
       - config-server
       - order-db
-      - product-service
+      - products-service
     networks:
       - micro-net
 
