@@ -1,0 +1,31 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: dashboard-service
+  cloud:
+    config:
+      import-check:
+        enabled: false
+  config:
+    import: ${CONFIG_SERVER}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          secret-key: ${SECURITY_JWT_SECRET_KEY}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER}
+  instance:
+    hostname: dashboard-service
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
