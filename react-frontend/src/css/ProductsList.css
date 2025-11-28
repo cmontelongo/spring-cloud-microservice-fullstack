@@ -1,0 +1,194 @@
+/* Página general */
+.products-page {
+    width: 100vw !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: #f8fafc;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.products-container {
+    width: 100% !important;
+    max-width: 96% !important;
+    margin: 0 !important;
+    padding: 1.5rem 1.5rem 2rem 1.5rem;
+    box-sizing: border-box;
+}
+
+/* Header */
+.products-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.products-title {
+    margin: 0;
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: #0f172a; /* slate-900 */
+}
+
+.products-subtitle {
+    margin: 0.25rem 0 0;
+    font-size: 0.85rem;
+    color: #6b7280; /* gris */
+}
+
+/* Botón principal */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.6rem 1.1rem;
+    border-radius: 999px;
+    border: none;
+    background-color: #4f46e5; /* indigo */
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 8px 18px rgba(79, 70, 229, 0.25);
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+}
+
+.btn-primary:hover {
+    background-color: #4338ca;
+    transform: translateY(-1px);
+    box-shadow: 0 12px 22px rgba(79, 70, 229, 0.35);
+}
+
+.btn-plus {
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+/* Tarjeta */
+.card {
+    width: 100% !important;
+    border-radius: 1.25rem;
+    border: 1px solid #e5e7eb;
+    background-color: #ffffff;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+    overflow: hidden;
+}
+
+.card-empty {
+    padding: 3rem 2rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+/* Tabla */
+.table-wrapper {
+    width: 100% !important;
+    overflow-x: auto;
+}
+
+.table-products {
+    width: 100% !important;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.table-products thead {
+    background-color: #f1f5f9;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.table-products th,
+.table-products td {
+    padding: 0.75rem 1.5rem;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.table-products th {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #64748b;
+}
+
+/* Alternancia de filas */
+.table-products tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.table-products tbody tr:nth-child(even) {
+    background-color: #f8fafc;
+}
+
+.table-products tbody tr:hover {
+    background-color: #eef2ff; /* indigo muy claro */
+}
+
+/* Celdas especiales */
+.cell-name {
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Badges de stock */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.5rem;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.badge-success {
+    background-color: #ecfdf3;
+    color: #16a34a;
+}
+
+.badge-danger {
+    background-color: #fef2f2;
+    color: #b91c1c;
+}
+
+/* Link de acción */
+.link-action {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #4f46e5;
+    text-decoration: none;
+}
+
+.link-action:hover {
+    text-decoration: underline;
+}
+
+/* Responsive básico */
+@media (max-width: 640px) {
+    .products-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .products-page {
+        padding: 1rem;
+    }
+
+    .table-products th,
+    .table-products td {
+        padding: 0.6rem 0.9rem;
+    }
+}
