@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.servicios.client.products.dto.ProductRequest;
 import com.servicios.client.products.dto.ProductResponse;
+import com.servicios.client.products.dto.ProductStatsResponse;
 import com.servicios.client.products.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
@@ -38,13 +39,15 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<ProductResponse> create(@RequestBody ProductRequest req,
-                                                  @RequestHeader(value = "X-User", required = false) String user) {
+            @RequestHeader(value = "X-User", required = false) String user) {
         // opcion: auditar por user
         return ResponseEntity.ok(productService.create(req));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductResponse> update(@PathVariable Long id, @RequestBody ProductRequest req) {
+    public ResponseEntity<ProductResponse> update(
+            @PathVariable Long id,
+            @RequestBody ProductRequest req) {
         return ResponseEntity.ok(productService.update(id, req));
     }
 
@@ -52,6 +55,30 @@ public class ProductController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         productService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/stats")
+    public ProductStatsResponse getProductStats(
+            @RequestHeader("X-User") String username) {
+        return productService.getStats();
+    }
+
+    @GetMapping("/stock-summary")
+    public List<ProductResponse> getStockSummary(
+            @RequestHeader("X-User") String username) {
+        // ejemplo simple: regresar todos y filtras en el front, o
+        // aquí podrías ordenar por stock asc y limitar (top 5 con menos stock)
+        return productService.getAll();
+    }
+
+    @GetMapping("/count")
+    public long countProducts() {
+        return productService.count();
+    }
+
+    @GetMapping("/out-of-stock")
+    public long outOfStock() {
+        return productService.countByStockLessThanEqual(0);
     }
 
 }
