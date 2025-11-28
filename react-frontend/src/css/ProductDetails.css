@@ -1,0 +1,276 @@
+.product-detail-page {
+    width: 100vw;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: #f8fafc;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.product-detail-container {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 3rem 1.5rem;
+    box-sizing: border-box;
+}
+
+/* Header */
+.product-detail-header {
+    margin-bottom: 1.25rem;
+}
+
+.breadcrumb {
+    margin-bottom: 0.5rem;
+}
+
+.breadcrumb-link {
+    font-size: 0.85rem;
+    color: #4f46e5;
+    text-decoration: none;
+}
+
+.breadcrumb-link:hover {
+    text-decoration: underline;
+}
+
+.product-detail-header-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.product-detail-title {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.product-detail-sku {
+    margin: 0.25rem 0 0;
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+.product-detail-sku span {
+    font-weight: 600;
+    color: #111827;
+}
+
+/* Tarjeta */
+.product-detail-card {
+    background-color: #ffffff;
+    border-radius: 1.25rem;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+    padding: 1.75rem 1.75rem 2rem 1.75rem;
+    box-sizing: border-box;
+}
+
+/* Layout interno */
+.product-detail-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1.2fr);
+    gap: 1.75rem;
+}
+
+.product-detail-main {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.product-detail-side {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Bloques */
+.detail-block {
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.detail-block:last-child {
+    border-bottom: none;
+}
+
+.side-block {
+    background-color: #f9fafb;
+    border-radius: 1rem;
+    padding: 1rem 1.1rem;
+}
+
+.detail-block-title {
+    margin: 0 0 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #111827;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+/* Filas de detalle */
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.4rem;
+}
+
+.detail-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.detail-value {
+    font-size: 0.9rem;
+    color: #111827;
+    text-align: right;
+}
+
+.detail-value.mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+        "Courier New", monospace;
+}
+
+/* Descripción */
+.detail-description {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #4b5563;
+}
+
+/* Loading y error */
+.product-detail-loading {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+.product-detail-error {
+    margin: 0 0 0.75rem;
+    font-size: 0.9rem;
+    color: #b91c1c;
+}
+
+/* Badges (reutiliza estilo de otros componentes si quieres) */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 5.5rem;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.badge-success {
+    background-color: #ecfdf3;
+    color: #16a34a;
+}
+
+.badge-danger {
+    background-color: #fef2f2;
+    color: #b91c1c;
+}
+
+/* Botones (puedes compartir con el CSS del formulario) */
+.btn-primary,
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.55rem 1.2rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease,
+        transform 0.1s ease;
+}
+
+.btn-primary {
+    background-color: #4f46e5;
+    color: #ffffff;
+    box-shadow: 0 8px 18px rgba(79, 70, 229, 0.25);
+}
+
+.btn-primary:hover:not(:disabled) {
+    background-color: #4338ca;
+    transform: translateY(-1px);
+    box-shadow: 0 12px 22px rgba(79, 70, 229, 0.35);
+}
+
+.btn-secondary {
+    background-color: #e5e7eb;
+    color: #374151;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background-color: #d1d5db;
+}
+
+.btn-primary:disabled,
+.btn-secondary:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.detail-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+/* Botones dentro del detalle: tamaño mínimo para que se vean parejos */
+.detail-actions .btn-primary,
+.detail-actions .btn-secondary {
+    min-width: 140px;
+}
+
+/* En pantallas pequeñas, uno debajo del otro y al 100% */
+@media (max-width: 640px) {
+    .detail-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .detail-actions .btn-primary,
+    .detail-actions .btn-secondary {
+        width: 100%;
+    }
+}
+
+.full-width {
+    width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .product-detail-container {
+        padding: 1.5rem 1rem 2rem 1rem;
+    }
+
+    .product-detail-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .detail-value {
+        text-align: left;
+    }
+}
